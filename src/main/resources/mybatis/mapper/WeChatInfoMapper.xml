@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="com.wang.wechat.dao.WeChatInfoMapper">
+    <resultMap id="BaseResultMap" type="com.wang.wechat.bean.WeChatInfo">
+        <id column="id" jdbcType="INTEGER" property="id"/>
+        <result column="open_id" jdbcType="VARCHAR" property="openId"/>
+        <result column="ins_time" jdbcType="TIMESTAMP" property="insTime" />
+        <result column="upd_time" jdbcType="TIMESTAMP" property="updTime" />
+    </resultMap>
+    <sql id="Base_Column_List">
+       id, open_id, ins_time, upd_time
+    </sql>
+    <select id="findWeChatInfoById" parameterType="java.lang.Long" resultMap="BaseResultMap">
+        select
+        <include refid="Base_Column_List" />
+        from apply_info
+        where apply_id = #{applyId,jdbcType=BIGINT}
+    </select>
+
+
+</mapper>
