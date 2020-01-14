@@ -9,6 +9,8 @@ import org.springframework.web.bind.annotation.RestController;
 
 import javax.annotation.Resource;
 import javax.servlet.http.HttpServletRequest;
+import javax.servlet.http.HttpServletResponse;
+import java.io.UnsupportedEncodingException;
 
 @RestController
 @RequestMapping("/wechat")
@@ -34,6 +36,19 @@ public class WeChatController {
         return wechatService.verifyToken(signature, timestamp, nonce, echostr);
     }
 
+
+
+    @RequestMapping(value = "/connection" , method = RequestMethod.POST)
+    public void echoMsg(HttpServletRequest request, HttpServletResponse response){
+        try {
+            request.setCharacterEncoding("UTF-8");
+            response.setCharacterEncoding("UTF-8");
+            wechatService.echoMsg(request,response);
+        } catch (UnsupportedEncodingException e) {
+            e.printStackTrace();
+        }
+
+    }
     @RequestMapping(value = "/test")
     public Result test() {
         return wechatService.test();
